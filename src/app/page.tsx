@@ -9,30 +9,21 @@ import { Challenge } from "@/components/landing/challenge";
 import { Benefits } from "@/components/landing/benefits";
 import { Story } from "@/components/landing/story";
 import { Footer } from "@/components/layout/footer";
-import { BrandExperienceOverlay } from "@/components/landing/brand-experience-overlay";
-
 export default function HomePage() {
-  const [activeBrandId, setActiveBrandId] = useState<string | null>(null);
+  const [selectedBrandIndex, setSelectedBrandIndex] = useState<number | null>(null);
 
   return (
     <>
       <Header />
       <main className="flex-1">
         <Hero />
-        <Brands onSelectBrand={(brandId) => setActiveBrandId(brandId)} />
+        <Brands onSelectBrand={(index) => setSelectedBrandIndex(index)} />
         <MoodMenu />
-        <Challenge onOpenExperience={() => setActiveBrandId("21-day-challenge")} />
+        <Challenge externalIndex={selectedBrandIndex} />
         <Benefits />
         <Story />
       </main>
       <Footer />
-
-      {/* Immersive Brand Experience Overlay */}
-      <BrandExperienceOverlay
-        activeBrandId={activeBrandId}
-        onClose={() => setActiveBrandId(null)}
-        onSelectBrand={(id) => setActiveBrandId(id)}
-      />
     </>
   );
 }

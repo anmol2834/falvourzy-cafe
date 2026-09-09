@@ -7,7 +7,7 @@ import { brandsData } from "@/data/brands";
 import { BrandLogo } from "@/components/ui/brand-logos";
 
 interface BrandsProps {
-  onSelectBrand?: (brandId: string) => void;
+  onSelectBrand?: (index: number) => void;
 }
 
 export function Brands({ onSelectBrand }: BrandsProps) {
@@ -26,7 +26,7 @@ export function Brands({ onSelectBrand }: BrandsProps) {
           </div>
 
           <Link
-            href="#brands"
+            href="#challenge"
             className="group inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-neutral-800 hover:text-emerald-900 transition-colors"
           >
             <span className="hidden sm:inline">Explore All Brands</span>
@@ -44,7 +44,11 @@ export function Brands({ onSelectBrand }: BrandsProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              onClick={() => onSelectBrand?.(brand.id)}
+              onClick={() => {
+                onSelectBrand?.(index);
+                const el = document.getElementById("challenge");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
               className="group shrink-0 w-[145px] sm:w-auto bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col items-center justify-between text-center border border-neutral-200/70 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 min-h-[165px] sm:min-h-[185px] cursor-pointer"
             >
               {/* Logo / Brand Mark */}
@@ -57,9 +61,9 @@ export function Brands({ onSelectBrand }: BrandsProps) {
                 {brand.descriptor}
               </div>
 
-              {/* Clean Know More Action */}
+              {/* View Brand Action */}
               <div className="mt-2.5 pt-1.5 border-t border-neutral-100 w-full flex items-center justify-center gap-1 text-[11px] font-semibold text-[#153424] group-hover:text-[#255E3D] transition-colors">
-                <span>Know More</span>
+                <span>View Brand</span>
                 <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" />
               </div>
             </motion.div>
