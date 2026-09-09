@@ -6,7 +6,11 @@ import { ArrowRight } from "lucide-react";
 import { brandsData } from "@/data/brands";
 import { BrandLogo } from "@/components/ui/brand-logos";
 
-export function Brands() {
+interface BrandsProps {
+  onSelectBrand?: (brandId: string) => void;
+}
+
+export function Brands({ onSelectBrand }: BrandsProps) {
   return (
     <section id="brands" className="py-10 sm:py-14 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,7 +44,8 @@ export function Brands() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group shrink-0 w-[140px] sm:w-auto bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col items-center justify-between text-center border border-neutral-200/70 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 min-h-[150px] sm:min-h-[168px] cursor-pointer"
+              onClick={() => onSelectBrand?.(brand.id)}
+              className="group shrink-0 w-[145px] sm:w-auto bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col items-center justify-between text-center border border-neutral-200/70 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 min-h-[165px] sm:min-h-[185px] cursor-pointer"
             >
               {/* Logo / Brand Mark */}
               <div className="flex items-center justify-center flex-1 w-full py-1">
@@ -48,8 +53,14 @@ export function Brands() {
               </div>
 
               {/* Descriptor */}
-              <div className="mt-2 text-[11px] sm:text-[11.5px] leading-tight text-neutral-500 group-hover:text-neutral-700 transition-colors font-medium whitespace-pre-line">
+              <div className="mt-1 text-[11px] sm:text-[11.5px] leading-tight text-neutral-500 group-hover:text-neutral-700 transition-colors font-medium whitespace-pre-line">
                 {brand.descriptor}
+              </div>
+
+              {/* Clean Know More Action */}
+              <div className="mt-2.5 pt-1.5 border-t border-neutral-100 w-full flex items-center justify-center gap-1 text-[11px] font-semibold text-[#153424] group-hover:text-[#255E3D] transition-colors">
+                <span>Know More</span>
+                <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" />
               </div>
             </motion.div>
           ))}
