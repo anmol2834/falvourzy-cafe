@@ -7,8 +7,10 @@ import { Brands } from "@/components/landing/brands";
 import { MoodMenu } from "@/components/landing/mood-menu";
 import { Challenge } from "@/components/landing/challenge";
 import { Benefits } from "@/components/landing/benefits";
+import { Testimonials } from "@/components/landing/testimonials";
 import { Story } from "@/components/landing/story";
 import { Footer } from "@/components/layout/footer";
+
 export default function HomePage() {
   const [selectedBrandIndex, setSelectedBrandIndex] = useState<number | null>(null);
 
@@ -21,6 +23,7 @@ export default function HomePage() {
         <MoodMenu />
         <Challenge externalIndex={selectedBrandIndex} />
         <Benefits />
+        <Testimonials />
         <Story />
       </main>
       <Footer />

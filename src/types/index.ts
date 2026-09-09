@@ -34,3 +34,23 @@ export interface ChallengeBenefit {
   title: string;
   icon: "leaf" | "activity" | "heart";
 }
+
+export interface TestimonialItem {
+  id: string;
+  name: string;
+  role?: string;
+  city: string;
+  avatar: string;
+  quote: string;
+  rating: number;
+  featured?: boolean;
+  foodImage?: string;
+  brandTag?: string;
+}
+
+export interface TestimonialStat {
+  id: string;
+  value: string;
+  label: string;
+  icon: "coffee" | "leaf" | "users";
+}
