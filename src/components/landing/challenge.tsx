@@ -212,18 +212,18 @@ export function Challenge({ externalIndex }: ChallengeProps) {
     setCurrentIndex((prev) => (prev - 1 + brandSlides.length) % brandSlides.length);
   }, []);
 
-  // Continuous auto slideshow every 3 seconds
+  // Continuous auto slideshow: guaranteed exact 5.0 seconds per slide
   useEffect(() => {
     if (isPaused) return;
 
-    timerRef.current = setInterval(() => {
+    const timer = setTimeout(() => {
       nextSlide();
-    }, 3000);
+    }, 5000);
 
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      clearTimeout(timer);
     };
-  }, [nextSlide, isPaused]);
+  }, [currentIndex, isPaused, nextSlide]);
 
   const slide = brandSlides[currentIndex];
 
@@ -275,9 +275,20 @@ export function Challenge({ externalIndex }: ChallengeProps) {
         <div
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          className="relative rounded-[32px] sm:rounded-[44px] p-8 sm:p-12 lg:p-16 overflow-hidden shadow-[0_12px_45px_rgba(0,0,0,0.04)] transition-colors duration-700 ease-out select-none"
+          className="relative rounded-[32px] sm:rounded-[44px] p-6 sm:p-12 lg:p-16 overflow-hidden shadow-[0_12px_45px_rgba(0,0,0,0.04)] transition-colors duration-700 ease-out select-none"
           style={{ backgroundColor: slide.bgColor }}
         >
+          {/* Top 5-second slide progress bar */}
+          <div className="absolute top-0 inset-x-0 h-1 bg-black/[0.04] overflow-hidden pointer-events-none">
+            <motion.div
+              key={`${currentIndex}-${isPaused}`}
+              initial={{ width: "0%" }}
+              animate={{ width: isPaused ? "0%" : "100%" }}
+              transition={{ duration: 5, ease: "linear" }}
+              className="h-full bg-neutral-800/30"
+            />
+          </div>
+
           {/* Floating Themed Motifs */}
           <div
             className="absolute top-12 left-[36%] w-7 h-7 pointer-events-none opacity-75 hidden sm:block -rotate-12 transition-colors duration-700"
@@ -334,39 +345,65 @@ export function Challenge({ externalIndex }: ChallengeProps) {
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center relative z-10"
             >
-              {/* Left Column: Eyebrow, Title, Description, Button */}
-              <div className="lg:col-span-4 flex flex-col items-start">
+              {/* Left Column: Eyebrow, Title, Description, Desktop Button */}
+              <div className="lg:col-span-4 flex flex-col items-start w-full">
+                {/* Mobile Top Row (< lg): Eyebrow on left, CTA Button cleanly on top right */}
+                <div className="lg:hidden flex items-center justify-between gap-3 w-full mb-3">
+                  <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35, delay: 0.05 }}
+                    className="text-[10.5px] sm:text-xs font-bold tracking-[0.2em] text-neutral-500 uppercase truncate"
+                  >
+                    {slide.eyebrow}
+                  </motion.span>
+
+                  <Link
+                    href={slide.buttonHref}
+                    className="shrink-0 text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-semibold text-[11px] sm:text-xs shadow-xs transition-all duration-200 inline-flex items-center gap-1.5 cursor-pointer hover:shadow-md hover:-translate-y-0.5 whitespace-nowrap"
+                    style={{ backgroundColor: slide.buttonBg }}
+                  >
+                    <span>{slide.buttonText}</span>
+                    <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+
+                {/* Desktop Eyebrow (>= lg) */}
                 <motion.span
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.35, delay: 0.05 }}
-                  className="text-[10.5px] sm:text-xs font-bold tracking-[0.25em] text-neutral-500 uppercase mb-3"
+                  className="hidden lg:block text-[10.5px] sm:text-xs font-bold tracking-[0.25em] text-neutral-500 uppercase mb-3"
                 >
                   {slide.eyebrow}
                 </motion.span>
 
+                {/* Title */}
                 <motion.h2
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 }}
-                  className="font-serif text-3xl sm:text-5xl lg:text-[52px] font-bold text-neutral-900 leading-[1.06] tracking-tight mb-4 whitespace-pre-line"
+                  className="font-serif text-3xl sm:text-5xl lg:text-[52px] font-bold text-neutral-900 leading-[1.06] tracking-tight mb-3 sm:mb-4 whitespace-pre-line"
                 >
                   {slide.title}
                 </motion.h2>
 
+                {/* Description */}
                 <motion.p
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.15 }}
-                  className="text-xs sm:text-sm lg:text-[15px] text-neutral-600 mb-8 max-w-sm leading-relaxed font-normal whitespace-pre-line"
+                  className="text-xs sm:text-sm lg:text-[15px] text-neutral-600 mb-6 sm:mb-8 max-w-sm leading-relaxed font-normal whitespace-pre-line"
                 >
                   {slide.description}
                 </motion.p>
 
+                {/* Desktop CTA Button (>= lg) */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.35, delay: 0.2 }}
+                  className="hidden lg:block"
                 >
                   <Link
                     href={slide.buttonHref}
@@ -468,7 +505,7 @@ export function Challenge({ externalIndex }: ChallengeProps) {
             {/* Manual Controls & 2-sec indicator */}
             <div className="flex items-center gap-3">
               <span className="text-[10px] sm:text-[11px] font-medium tracking-wider text-neutral-500 uppercase">
-                {isPaused ? "Paused" : "Auto 3s"}
+                {isPaused ? "Paused" : "Auto 5s"}
               </span>
 
               <div className="flex items-center gap-1">
