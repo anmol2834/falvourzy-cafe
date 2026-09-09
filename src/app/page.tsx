@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/landing/hero";
 import { Brands } from "@/components/landing/brands";
 import { MoodMenu } from "@/components/landing/mood-menu";
+import { WeeklyOffers } from "@/components/landing/weekly-offers";
 import { Challenge } from "@/components/landing/challenge";
 import { Benefits } from "@/components/landing/benefits";
 import { Testimonials } from "@/components/landing/testimonials";
@@ -21,6 +22,7 @@ export default function HomePage() {
         <Hero />
         <Brands onSelectBrand={(index) => setSelectedBrandIndex(index)} />
         <MoodMenu />
+        <WeeklyOffers />
         <Challenge externalIndex={selectedBrandIndex} />
         <Benefits />
         <Testimonials />
