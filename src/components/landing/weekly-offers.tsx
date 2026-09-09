@@ -240,9 +240,9 @@ export function WeeklyOffers() {
               <ChevronLeft className="w-4 h-4" />
             </button>
 
-            {/* 3 cards visible on mobile / tablet */}
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-3 w-full px-5 sm:px-6">
-              {[0, 1, 2].map((offset) => {
+            {/* 2 cards visible on mobile / tablet */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full px-6 sm:px-8">
+              {[0, 1].map((offset) => {
                 const item =
                   weeklyOffersData[
                     (activeDayIndex + offset) % weeklyOffersData.length
@@ -250,13 +250,13 @@ export function WeeklyOffers() {
                 return (
                   <div
                     key={item.id}
-                    className="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-neutral-200/70 shadow-xs flex flex-col justify-between"
+                    className="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 border border-neutral-200/70 shadow-xs flex flex-col justify-between"
                   >
                     <div>
                       {/* Day Tag & Badge Row */}
-                      <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center justify-between mb-2">
                         <span
-                          className={`text-[10px] sm:text-xs font-bold tracking-wider ${
+                          className={`text-xs font-bold tracking-wider ${
                             item.dayColor === "terracotta"
                               ? "text-[#C85A32]"
                               : "text-neutral-800"
@@ -266,7 +266,7 @@ export function WeeklyOffers() {
                         </span>
 
                         <div
-                          className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex flex-col items-center justify-center text-center p-0.5 text-white font-bold leading-none shadow-xs text-[7.5px] sm:text-[8px] ${
+                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex flex-col items-center justify-center text-center p-0.5 text-white font-bold leading-none shadow-xs text-[8px] sm:text-[8.5px] ${
                             item.badgeType === "terracotta"
                               ? "bg-[#C85A32]"
                               : "bg-[#255E3D]"
@@ -275,7 +275,7 @@ export function WeeklyOffers() {
                           {item.badge.includes("Buy 1") ? (
                             <>
                               <span>Buy 1</span>
-                              <span className="text-[7px]">Get 1</span>
+                              <span className="text-[7.5px]">Get 1</span>
                             </>
                           ) : (
                             <span>{item.badge}</span>
@@ -283,32 +283,32 @@ export function WeeklyOffers() {
                         </div>
                       </div>
 
-                      {/* Food Image in Soft Circle */}
-                      <div className="relative my-1 flex items-center justify-center">
-                        <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden shadow-2xs">
+                      {/* Food Image in Soft Circle with subtle accent burst */}
+                      <div className="relative my-1.5 flex items-center justify-center">
+                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden shadow-2xs ring-1 ring-black/[0.04]">
                           <Image
                             src={item.image}
                             alt={item.alt}
                             fill
                             className="object-cover"
-                            sizes="80px"
+                            sizes="100px"
                           />
                         </div>
                       </div>
 
                       {/* Title & Description */}
-                      <div className="mt-2">
+                      <div className="mt-2.5">
                         <h4 className="font-bold text-xs sm:text-sm text-neutral-900 leading-tight">
                           {item.title}
                         </h4>
-                        <p className="text-[9.5px] sm:text-[10.5px] text-neutral-500 leading-tight mt-0.5 line-clamp-2">
+                        <p className="text-[10px] sm:text-[11px] text-neutral-500 leading-tight mt-1 line-clamp-2">
                           {item.description}
                         </p>
                       </div>
                     </div>
 
                     {/* Order Now CTA */}
-                    <div className="mt-3 pt-1.5 border-t border-neutral-100 flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-neutral-900">
+                    <div className="mt-3 pt-2 border-t border-neutral-100 flex items-center gap-1 text-[11px] sm:text-xs font-bold text-neutral-900">
                       <span>Order Now</span>
                       <ArrowRight className="w-3 h-3" />
                     </div>
