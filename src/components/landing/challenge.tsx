@@ -212,13 +212,13 @@ export function Challenge({ externalIndex }: ChallengeProps) {
     setCurrentIndex((prev) => (prev - 1 + brandSlides.length) % brandSlides.length);
   }, []);
 
-  // Continuous auto slideshow every 2 seconds
+  // Continuous auto slideshow every 3 seconds
   useEffect(() => {
     if (isPaused) return;
 
     timerRef.current = setInterval(() => {
       nextSlide();
-    }, 2000);
+    }, 3000);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -468,7 +468,7 @@ export function Challenge({ externalIndex }: ChallengeProps) {
             {/* Manual Controls & 2-sec indicator */}
             <div className="flex items-center gap-3">
               <span className="text-[10px] sm:text-[11px] font-medium tracking-wider text-neutral-500 uppercase">
-                {isPaused ? "Paused" : "Auto 2s"}
+                {isPaused ? "Paused" : "Auto 3s"}
               </span>
 
               <div className="flex items-center gap-1">

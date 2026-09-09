@@ -22,7 +22,7 @@ export function Hero() {
             priority
             quality={95}
             className="object-cover object-top"
-            sizes="100vw"
+            sizes="(max-width: 1023px) 100vw, 1px"
           />
           {/* Subtle top blend for header legibility */}
           <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#FBF8F3]/60 to-transparent pointer-events-none" />
@@ -38,7 +38,7 @@ export function Hero() {
             fill
             priority
             className="object-cover object-center"
-            sizes="100vw"
+            sizes="(min-width: 1024px) 100vw, 1px"
           />
           {/* Seamless left fade into the page background color */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#FBF8F3] via-[#FBF8F3]/60 to-transparent w-1/2 pointer-events-none" />
