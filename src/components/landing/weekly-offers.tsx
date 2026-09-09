@@ -86,8 +86,8 @@ export function WeeklyOffers() {
             </p>
           </div>
 
-          {/* Right Header Group: Script & Circular Seal */}
-          <div className="flex items-center gap-6 sm:gap-8 self-start lg:self-center">
+          {/* Right Header Group: Script & Circular Seal (Desktop only, hidden on phone devices) */}
+          <div className="hidden lg:flex items-center gap-6 sm:gap-8 self-start lg:self-center">
             {/* Handwritten Script */}
             <div className="text-right">
               <span className="font-script text-2xl sm:text-3xl lg:text-[34px] text-neutral-800 -rotate-6 inline-block leading-tight font-medium drop-shadow-2xs">
